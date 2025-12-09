@@ -1,19 +1,20 @@
 import { Component, computed, input, output } from '@angular/core';
+import type { UserProfile } from '../types/userType';
 
 @Component({
   selector: 'app-user',
-  imports: [],
   templateUrl: './user.html',
   styleUrl: './user.css',
+  standalone: false
 })
 export class User {
-  avatar = input.required<string>();
-  name = input.required<string>();
-  onSelection = output<string>();
+  user = input.required<UserProfile>();
+  onSelection = output<UserProfile>();
+  selected = input(false)
 
-  imagePath = computed(() => `assets/users/${this.avatar()}`);
+  imagePath = computed(() => `assets/users/${this.user().avatar}`);
 
   onSelectUser() {
-    this.onSelection.emit(this.name())
+    this.onSelection.emit(this.user())
   }
 }
